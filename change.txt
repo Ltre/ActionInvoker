@@ -1,0 +1,24 @@
+﻿本版[1.9.8]更新日志
+
+	2014-4-13
+		1、修正[mysql扩展]中mysql.php第109~110行，添加了以下语句：
+				if(false===$value) $value='false';//如果字段为布尔假，则用无引号的false
+				if(true===$value) $value='true';//如果字段为布尔真，则用无引号的true
+				
+			修正了插入bool数值到SQL语句导致语法不正常的BUG（布尔值处留空，即两个逗号之间为空）。
+	
+	2014-4-16
+		1、修正[mysql扩展]中mysql.php第154~155行，添加了：
+				if(false===$value) $value='false';//如果字段为布尔假，则用无引号的false
+				if(true===$value) $value='true';//如果字段为布尔真，则用无引号的true
+			修正了修改bool数值到SQL语句导致语法不正常的BUG（布尔值处留空，即两个逗号之间为空）。
+			
+	2014-6-25
+		1、/index.php加入以下代码：
+			//设置默认时区
+			date_default_timezone_set('PRC');
+			//开启输出缓冲（租用的服务器需要）
+			ob_start();
+			//开启PHP错误提示
+			ini_set("display_errors", "On");
+			error_reporting(E_ALL | E_STRICT);

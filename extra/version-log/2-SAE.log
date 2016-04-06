@@ -1,0 +1,311 @@
+r16 | fkb_159357@163.com | 2016-04-06 00:59:38 CST
+Changed paths:
+	M /1/core/lib/base/url__.php
+
+修正isIdsFormat
+----------------------------------------------------------------------------
+r15 | fkb_159357@163.com | 2015-05-24 02:12:01 CST
+Changed paths:
+	M /1/index.php
+----------------------------------------------------------------------------
+r14 | fkb_159357@163.com | 2014-08-01 21:36:26 CST
+Changed paths:
+	M /1/index.php
+
+Autoversioning commit:  a non-deltaV client made a change to
+/1/index.php
+----------------------------------------------------------------------------
+r13 | fkb_159357@163.com | 2014-08-01 21:36:21 CST
+Changed paths:
+	M /1/index.php
+
+Autoversioning commit:  a non-deltaV client made a change to
+/1/index.php
+----------------------------------------------------------------------------
+r12 | fkb_159357@163.com | 2014-06-25 23:25:31 CST
+Changed paths:
+	M /1/index.php
+	M /1/change.txt
+----------------------------------------------------------------------------
+r11 | fkb_159357@163.com | 2014-04-23 11:52:09 CST
+Changed paths:
+	M /1/readme.txt
+	M /1/core/lib/ext/mysql/mysql.php
+	M /1/change.txt
+----------------------------------------------------------------------------
+r10 | fkb_159357@163.com | 2014-04-13 14:08:14 CST
+Changed paths:
+	M /1/core/lib/ext/mysql/mysql.php
+	M /1/change.txt
+
+	2014-4-13
+		1、修正[mysql扩展]中mysql.php第109~110行，添加了以下语句：
+				if(false===$value) $value='false';//如果字段为布尔假，则用无引号的false
+				if(true===$value) $value='true';//如果字段为布尔真，则用无引号的true
+				
+			修正了插入bool数值到SQL语句导致语法不正常的BUG（布尔值处留空，即两个逗号之间为空）。
+
+----------------------------------------------------------------------------
+r9 | fkb_159357@163.com | 2014-04-05 17:40:42 CST
+Changed paths:
+	M /1/change.txt
+----------------------------------------------------------------------------
+r8 | fkb_159357@163.com | 2014-04-05 17:40:26 CST
+Changed paths:
+	M /1/change.txt
+----------------------------------------------------------------------------
+r7 | fkb_159357@163.com | 2014-04-05 15:57:47 CST
+Changed paths:
+	M /1/core/lib/ext/mysql/mysql.php
+	M /1/change.txt
+----------------------------------------------------------------------------
+r6 | fkb_159357@163.com | 2014-03-11 09:32:44 CST
+Changed paths:
+	M /1/core/lib/base/url__.php
+	M /1/change.txt
+----------------------------------------------------------------------------
+r5 | fkb_159357@163.com | 2014-03-09 22:52:15 CST
+Changed paths:
+	M /1/change.txt
+
+本版[1.9.6]更新日志
+
+	2014-3-9
+		1、修正了[mysql扩展]中，AiMySQL::queryEntity()只传入表名（去除前缀的）而产生的BUG，
+			已在/core/lib/ext/mysql/mysql.php的第200行附近修复。
+		2、在/core/lib/base/init__.php内，
+			在代码【$urlInfo = UrlUtil::analyseUrlParam($_GET);】下一行添加了$_SESSION['urlInfo'] = $urlInfo;
+			就此，普通模板（自由脚本）中也可以读取到URL参数了。
+			具体用法： 
+				$u = $_SESSION['urlInfo'];
+				echo "当前指令是："; 
+				var_dump($u['params']);
+
+----------------------------------------------------------------------------
+r4 | fkb_159357@163.com | 2014-03-09 22:49:10 CST
+Changed paths:
+	M /1/core/lib/base/init__.php
+	M /1/core/lib/ext/mysql/mysql.php
+	M /1/change.txt
+
+本版[1.9.6]更新日志
+
+	2014-3-9
+		1、修正了[mysql扩展]中，AiMySQL::queryEntity()只传入表名（去除前缀的）而产生的BUG，
+			已在/core/lib/ext/mysql/mysql.php的第200行附近修复。
+		2、在/core/lib/base/init__.php内，
+			在代码【$urlInfo = UrlUtil::analyseUrlParam($_GET);】下一行添加了$_SESSION['urlInfo'] = $urlInfo;
+			就此，普通模板（自由脚本）中也可以读取到URL参数了。
+			具体用法： 
+				$u = $_SESSION['urlInfo'];
+				echo "当前指令是："; 
+				var_dump($u['params']);
+
+----------------------------------------------------------------------------
+r3 | fkb_159357@163.com | 2014-03-02 17:13:54 CST
+Changed paths:
+	M /1/core/lib/ext/mysql/mysql.php
+----------------------------------------------------------------------------
+r2 | fkb_159357@163.com | 2014-02-27 04:38:21 CST
+Changed paths:
+	A /1/core/lib/ext/ftp
+	A /1/core/tpl/other/err/zh_CN/403-3.htm
+	A /1/core/tpl/other/err/zh_CN/500-16.htm
+	A /1/core/lib/base/url__.php
+	A /1/core/config/filtermap.php
+	A /1/core/tpl/other/err/zh_CN/403-18.htm
+	A /1/res/ftp_test
+	A /1/core/tpl/other/err/zh_CN/401.php
+	A /1/core/tpl/other/err/ja_JP/403-9.php
+	A /1/core/tpl/default/Help/help.php
+	A /1/res/js/jquery-1.8.3.min.js
+	A /1/core/tpl/other/err/zh_CN/500-17.htm
+	A /1/core/action/Help.action.php
+	A /1/core/tpl/other/err/zh_CN/403-6.htm
+	A /1/core/entity
+	A /1/core
+	A /1/core/tpl/other/err/ja_JP/412.htm
+	A /1/core/tpl/other/err/zh_CN/403-1.htm
+	A /1/core/lib/base/__include__.php
+	A /1/core/tpl/other/err/ja_JP/405.htm
+	A /1/core/tpl/other/err/zh_CN/403-14.htm
+	A /1/res/css
+	A /1/.settings
+	A /1/core/tpl/other/err/zh_CN/404-3.htm
+	A /1/core/tpl/other/err/ja_JP/403-13.php
+	A /1/core/setting/这里放置自由配置文件
+	A /1/core/tpl/other/err/ja_JP/500-13.htm
+	A /1/path__.php
+	A /1/core/tpl/default/Help
+	A /1/core/tpl/other/err/ja_JP/403.php
+	A /1/core/tpl/other/err/zh_CN/403-4.htm
+	A /1/core/tpl/other/err/ja_JP/404-1.php
+	A /1/core/tpl/other/err/ja_JP/404.php
+	A /1/core/tpl/other/err/ja_JP/502.htm
+	A /1/core/tpl/other/err/ja_JP/401-2.php
+	A /1/core/tpl/other/err/zh_CN/404-7.htm
+	A /1/core/action/Index.action.php
+	A /1/core/tpl/other/err/zh_CN/404-2.htm
+	A /1/core/tpl/other/err/ja_JP/404-5.htm
+	A /1/core/config/const.php
+	A /1/res/jquery-mobile/images/icons-18-white.png
+	A /1/core/tpl/other/err/ja_JP/403-5.php
+	A /1/core/lib/ext/mysql
+	A /1/core/tpl/other/err/zh_CN/404-15.htm
+	A /1/core/tpl/other/err/zh_CN/406.htm
+	A /1/core/tpl/other/err/zh_CN/403.htm
+	A /1/core/lib/ext/mysql/BaseEntity.entity.php
+	A /1/core/tpl/other/err/ja_JP/500-19.htm
+	A /1/res/js/这里放置JS脚本
+	A /1/res/img/这里放置图片
+	A /1/core/lib/ext/mysql/AiMySQLOrderBy.class.php
+	A /1/core/tpl/other/err/zh_CN/500-15.htm
+	A /1/core/lib/base/env__.php
+	A /1/core/tpl/other/err/zh_CN/401-2.htm
+	A /1/core/tpl/other/err/ja_JP/404-3.htm
+	A /1/res/jquery-mobile/jquery.mobile.structure-1.0.min.css
+	A /1/res/jquery-mobile/images/icons-18-black.png
+	A /1/core/tpl/other/err/zh_CN/403-17.htm
+	A /1/res/css/shelltest.css
+	A /1/core/tpl/other/err/zh_CN/403-9.htm
+	A /1/core/tpl/other/err/zh_CN/412.htm
+	A /1/core/tpl/other
+	A /1/core/tpl/other/err/ja_JP/403-12.php
+	A /1/core/tpl/other/err/zh_CN/403-8.htm
+	A /1/core/tpl/other/err/zh_CN/502.htm
+	A /1/core/tpl/other/err/zh_CN/401-4.htm
+	A /1/core/tpl/other/err/zh_CN/404-9.htm
+	A /1/core/tpl/other/err/zh_CN/405.htm
+	A /1/core/tpl/other/err/zh_CN/404-11.htm
+	A /1/core/lib
+	A /1/core/tpl/default/Help/shelltest.php
+	A /1/core/tpl/other/err/zh_CN/501.htm
+	A /1/core/tpl/other/err/ja_JP/500-18.htm
+	A /1/core/tpl/other/err/ja_JP/401-5.php
+	A /1/core/tpl/other/err/ja_JP/403-4.php
+	A /1/core/action/Test.action.php
+	A /1/core/tpl/other/err/ja_JP/401-1.php
+	A /1/core/tpl/other/err/ja_JP/500-100.asp
+	A /1/core/tpl/other/err/ja_JP/403-1.php
+	A /1/core/filter
+	A /1/core/tpl/other/err/zh_CN/404-4.htm
+	A /1/core/tpl/other/err/zh_CN
+	A /1/core/tpl/other/err/ja_JP/404-12.htm
+	A /1/core/lib/base
+	A /1/core/tpl/other/err/zh_CN/403-5.htm
+	A /1/core/tpl/other/err/ja_JP/404-10.htm
+	A /1/res/jquery-mobile/jquery-1.6.4.min.js
+	A /1/core/tpl/other/err/ja_JP/404-11.htm
+	A /1/res/jquery-mobile/jquery.mobile.theme-1.0.min.css
+	A /1/core/lib/ext/这里可放置第三方扩展库
+	A /1/core/tpl/other/othertest.php
+	A /1/core/tpl/other/err/ja_JP/404-13.htm
+	A /1/readme.txt
+	A /1/readme.jpg
+	A /1/core/tpl/other/err/zh_CN/403-13.htm
+	A /1/res/jquery-mobile/images/icons-36-black.png
+	A /1/core/tpl/other/err/ja_JP/403-16.php
+	A /1/core/tpl/other/err/ja_JP/403-6.php
+	A /1/core/tpl/other/err/ja_JP/404-4.htm
+	A /1/core/lib/ext/ftp/AiFtpStatus.class.php
+	A /1/.settings/org.eclipse.php.core.prefs
+	A /1/res
+	A /1/core/lib/base/path__.php
+	A /1/core/tpl/other/err/zh_CN/404-8.htm
+	A /1/.htaccess
+	A /1/core/tpl/other/err/ja_JP/404-9.htm
+	A /1/core/tpl/other/err/ja_JP/500-15.htm
+	A /1/core/tpl/other/err/zh_CN/403-11.htm
+	A /1/res/js
+	A /1/core/tpl/other/err/ja_JP/404-15.htm
+	A /1/res/jquery-mobile
+	A /1/core/tpl/other/err/zh_CN/404-5.htm
+	A /1/core/tpl/other/err/ja_JP/403-7.php
+	A /1/core/tpl/403.php
+	A /1/core/tpl/other/err/zh_CN/500-13.htm
+	A /1/core/tpl/other/err/zh_CN/403-12.htm
+	A /1/core/lib/base/filter__.php
+	A /1/core/tpl/other/err/zh_CN/404-10.htm
+	A /1/core/tpl/other/err/zh_CN/500.htm
+	A /1/res/jquery-mobile/images/ajax-loader.png
+	A /1/core/action
+	A /1/core/tpl/other/err/ja_JP/401-3.php
+	A /1/core/tpl/other/err/ja_JP/403-2.php
+	A /1/core/lib/base/core__.php
+	A /1/core/tpl/other/err/zh_CN/403-16.htm
+	A /1/core/tpl/default
+	A /1/res/js/shelltest.js
+	A /1/core/tpl/other/err/ja_JP/404-2.php
+	A /1/res/jquery-mobile/images
+	A /1/core/lib/ext/mysql/mysql.php
+	A /1/core/tpl/other/err/ja_JP/403-15.php
+	A /1/core/tpl/other/err/ja_JP/403-14.php
+	A /1/core/tpl/other/err/ja_JP/500-14.htm
+	A /1/res/jquery-mobile/jquery.mobile-1.0.min.js
+	A /1/core/setting
+	A /1/core/filter/GLOBALFILTER.filter.php
+	A /1/core/lib/base/action__.php
+	A /1/core/tpl/other/err/ja_JP/403-18.php
+	A /1/index.php
+	A /1/core/tpl/other/err/ja_JP/500-17.htm
+	A /1/core/filter/Test.filter.php
+	A /1/res/img
+	A /1/core/entity/Demo.entity.php
+	A /1/core/tpl/other/err/ja_JP/401-4.php
+	A /1/.project
+	A /1/core/tpl/other/err/zh_CN/404-13.htm
+	A /1/core/lib/ext/mysql/AiMySQLCombination.class.php
+	A /1/core/tpl/other/err/ja_JP/403-11.php
+	A /1/core/tpl/other/err/ja_JP/404-8.htm
+	A /1/core/lib/ext
+	A /1/core/tpl/other/err/zh_CN/403-7.htm
+	A /1/core/tpl/other/err/zh_CN/404-6.htm
+	A /1/.buildpath
+	A /1/core/tpl/other/err/ja_JP/401.php
+	A /1/core/tpl/other/err/ja_JP/404-7.htm
+	A /1/core/lib/base/init__.php
+	A /1/core/tpl/other/err/ja_JP/403-19.php
+	A /1/core/tpl/default/Help/page.php
+	A /1/core/lib/ext/ftp/AiFtp.class.php
+	A /1/core/tpl/other/err/zh_CN/500-19.htm
+	A /1/core/tpl/other/err/zh_CN/404-12.htm
+	A /1/core/tpl/other/err/ja_JP/501.htm
+	A /1/core/tpl/other/err/zh_CN/403-2.htm
+	A /1/core/tpl/other/err
+	A /1/core/tpl/other/err/zh_CN/404-1.htm
+	A /1/core/lib/ext/mysql/AiMySQLCondition.class.php
+	A /1/core/tpl/other/err/zh_CN/404-14.htm
+	A /1/core/tpl/other/err/zh_CN/401-5.htm
+	A /1/core/config/urlshell.php
+	A /1/core/tpl/other/err/zh_CN/403-10.htm
+	A /1/core/tpl/other/err/ja_JP/404-6.htm
+	A /1/core/tpl/other/err/zh_CN/404.htm
+	A /1/core/tpl/other/err/zh_CN/500-14.htm
+	A /1/change.txt
+	A /1/core/tpl/other/err/ja_JP/500-16.htm
+	A /1/res/jquery-mobile/images/icons-36-white.png
+	A /1/core/tpl/other/err/ja_JP/403-8.php
+	A /1/core/tpl/other/err/zh_CN/500-100.asp
+	A /1/core/tpl/other/err/ja_JP
+	A /1/core/tpl
+	A /1/core/config/define.php
+	A /1/core/tpl/other/err/zh_CN/403-19.htm
+	A /1/core/tpl/other/err/ja_JP/500.htm
+	A /1/core/tpl/other/err/zh_CN/403-15.htm
+	A /1/core/tpl/other/err/zh_CN/401-1.htm
+	A /1/core/tpl/other/err/zh_CN/401-3.htm
+	A /1/core/tpl/other/err/ja_JP/403-3.php
+	A /1/core/tpl/other/err/ja_JP/406.htm
+	A /1/core/config
+	A /1/res/css/这里放置CSS样式
+	A /1/core/tpl/other/err/ja_JP/404-14.htm
+	A /1/core/tpl/other/err/ja_JP/403-10.php
+	A /1/core/tpl/other/err/zh_CN/500-18.htm
+	A /1/core/tpl/other/err/ja_JP/403-17.php
+----------------------------------------------------------------------------
+r1 | fkb_159357@163.com | 2014-02-27 04:30:40 CST
+Changed paths:
+	A /1
+
+初始导入。
+----------------------------------------------------------------------------

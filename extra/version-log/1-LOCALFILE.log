@@ -1,0 +1,216 @@
+
+初次开发阶段，在本地进行，没有加入版本控制，全靠人工记录
+
+	2013-7-29
+		【
+		初版：支持URL分析和Action调度
+		】
+	
+	2013-7-30
+		【
+		加入自动包含库文件和Action的支持，嵌入使用向导到首页
+		】
+	
+	2013-7-31
+		【
+		加入模板输出支持、
+		
+		非法参数和无效模板的404处理，
+		
+		准备加入过滤器支持（实现Filter接口以拦截进入Action模块的数据流）
+		】
+	
+	2013-8-4
+		【
+		1、扩充模板输出能力，可以分为Action模板和普通模板两类；
+		
+		2、对无法访问到的脚本拦截，需要服务器支持URL重写；
+		
+		3、加入过滤器支持，支持单过滤器和过滤器链，
+		
+		   可以为模块专门定制一个过滤器群组
+		】
+		
+	2013-12-5 
+		添加config目录配置支持，至此，开发者将可在别处定义常量，而不用直接编辑env__.php。
+		但对于框架级的常量，还是要回到env__.php中修改。
+	
+	2013-12-7
+		添加entity目录配置支持，至此，开发者将可以定义自己的实体类
+		简化了Action和Filter文件的名称。
+		
+	2013-12-8
+		将URL指令和对应参数个数的配置从/core/lib/base/action__.php转移到/core/config/目录下的任意文件中，
+		只要在这个位置的任意一个文件中定义类“AiUrlShell”即可，具体参考/core/config/urlshell.php
+
+	2013-12-9 
+		1、修正了XxxxFilter中定义的doFilter_x()  模块级过滤方法无法被执行到的BUG。
+		2、发现了url参数的ids项的值不能超过2147483647（ids项被强制转换成了int类型）
+			例如：
+			http://localhost:8080/php/ActionInvoker/?xxx=demo|123121561651
+			所传的第一个后续参数为：“123121561651”
+			那么得到的url参数信息为：
+			Array ( [status] => 3 [shell] => demo [params] => Array ( [0] => demo [1] => 123121561651 ) [ids] => Array ( [0] => 2147483647 ) ) 
+			此情况不予处理，使用时请多加注意。
+		3、发现了 /core/tpl/othertest/ 目录内的普通模板访问链接方式除了可用“-”隔开以外，还可用“/”或“\”
+			例如：
+			http://localhost:8080/ActionInvoker/?xxx=a-othertest
+			可改为
+			http://localhost:8080/ActionInvoker/?xxx=a/othertest
+			或
+			http://localhost:8080/ActionInvoker/?xxx=a\othertest
+			对此情况，不予处理。并支持此情况继续存在，希望使用者可以灵活运用该特性。
+		4、发现部分编写的页面没有以下声明时，在IE9模式下将无法正常加载。
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+			<html xmlns="http://www.w3.org/1999/xhtml">
+		        因此建议，每个页面要有这些声明，以提高兼容性。
+	
+	2013-12-10 
+		1、在“page”指令对应的页面中新增URL指令及参数测试功能，可以通过输入的信息实时测试模块。
+		2、添加了全局过滤器支持。
+			详见：
+			GLOBAL_FILTER_NAME @ /core/lib/base/env__.php
+			eval(GLOBAL_FILTER_NAME.'::doFilter($urlInfo);'); @ /core/lib/base/init__.php
+			class GLOBALFILTER @ /core/filter/GLOBALFILTER.filter.php 
+	
+	2013-12-12 
+		1、添加新的模块指令测试页面，其指令为“shelltest”，以方便开发人员直观地测试自己的模块功能。
+			使用方法：
+				根据页面中的提示，左边输入URL指令，右边输入参数（多个参数用“|”分开），下方的方框即显示访问结果。
+				如果URL指令所需参数个数为零，则要清空右边的输入域。
+			注意：shelltest指令对应的测试页将在后续的某个版本中取代“page”指令所指页面。
+
+	2013-12-15至17
+		 1、在/core/lib/exe/ 目录添加 [ mysql扩展 ] ，支持增、删、改实体。
+		 2、修改/core/lib/base/init__.php，就此新增了全局过滤器链的支持。
+		 	全局过滤链的使用方法类似于XxxxAction的过滤器。
+		 	详见：
+		 		GLOBAL_FILTER_NAME @ /core/lib/base/env__.php
+		 		FILTER_DIR @ /core/lib/base/env__.php
+		 		%FILTER_DIR% / %GLOBAL_FILTER_NAME% . filter.php
+	
+	2013-12-18
+		1、在  [ mysql扩展 ] 中，添加了AiMySQLCondition.class.php，支持单个SQL条件的对象化，以配合MySQL查询。
+
+	2013-12-19
+		1、在  [ mysql扩展 ] 中，添加了AiMySQLCombination、AiMySQLOrderBy类，使SQL条件子句和排序子句规范化。
+		2、在  [ mysql扩展 ]的实体查询中，支持条件查询、结果集游标范围指定、条件组合方式有限指定。
+			已实现：查询条件——》结果集——》严格的类型转换——》正确对象的集合
+	
+	2013-12-20
+		1、为 [ MySQL扩展 ] 提供第二种种查询支持：任意SQL查询。
+		
+	2013-12-21
+		关于过滤器有效性的说明
+			Action方法的过滤器的有效性由以下因素决定
+				Action方法的访问修饰符(public、protected)，
+				对应的过滤器，
+				访问Action的方式
+			现有某Action方法：urlshell()。作以下规定：
+			---------------------------------------------
+			if ( 以URL方式访问（http://yourserver:port/project/?xxx=urlshell） ){
+				if ( 有定义对应的XxxFilter且有过滤器urlshell() ){
+					if ( Action方法无访问修饰符 )
+						【过滤器有效】;
+					else if( Action方法以public修饰 )
+						【过滤器有效】;
+					else if( Action方法以protected修饰 )
+						【过滤器有效】;
+					else if( Action方法以private修饰 )
+						【过滤器 无 效】且Action方法无法执行;
+				}
+				else if ( 没有对应的过滤器方法urlshell()或urlshell_*() ){
+					if ( Action方法以public修饰  || Action方法以protected修饰  || Action方法无访问修饰符 )
+						【无过滤功能】;
+					else if( Action方法以private修饰 )
+						【无过滤功能】且Action方法无法执行;
+				}
+			}
+			else if( 以代码调用方式访问（ActionUtil::action('Xxxx')->urlshell();） ){
+				if ( 有定义对应的XxxFilter且有过滤器urlshell() ){
+					if ( Action方法无访问修饰符 )
+						【过滤器 无 效】;
+					else if( Action方法以public修饰 )
+						【过滤器 无 效】;
+					else if( Action方法以protected修饰 )
+						【过滤器有效】;
+					else if( Action方法以private修饰 )
+						【过滤器 无 效】且Action方法无法执行;
+				}
+				else if ( 没有对应的过滤器方法urlshell()或urlshell_*() ){
+					if ( Action方法以public修饰  || Action方法以protected修饰  || Action方法无访问修饰符 )
+						【无过滤功能】;
+					else if( Action方法以private修饰 )
+						【无过滤功能】且Action方法无法执行;
+				}
+			}
+			----------------------------------------------
+			综上所述，凡是设置了过滤器的Action方法，
+				如果设置为public或空，则仅在URL访问时会执行过滤器；
+				如果设置为protected，则在URL访问或代码调用时都会执行过滤器；
+				如果设置为private，则无论怎么访问，过滤器都是无效的。
+		强烈建议：
+			凡是需要过滤器的Action方法，都修饰为protected。
+			对于protected，顾名思义，就是受过滤器保护的意思。
+	
+	2013-12-22
+		在/core/config/目录添加了附加过滤规则（AFR），文件名为filtermap.php。
+		在该文件中，可以配置需要或不需要配置全局过滤器的模块或指令。
+		原理详见FilterUtil::globalFilter() @ /core/lib/base/filter__.php 和 init__.php
+		
+	2014-1-7
+		1、[mysql扩展]开始支持数据表前缀，例如fm_xxx表与xxx对象对应。
+		2、关于配置文件中一个值的说明
+			值：AiAdditionalFilterMapRule::$elsePrior @ /core/config/filtermap.php
+			说明：该值设定后，还有另外一种效果，即：
+			* 	当为true时，如果某指令（如index）既需要又不需要全局过滤器，则视为需要全局过滤器
+			* 	当为false时，如果某指令（如index）既需要又不需要全局过滤器，则视为 不 需要全局过滤器
+	
+	2014-1-29
+		1、添加[FTP扩展]，目录ftp
+			支持
+				单文件全新上传、
+				单文件断点上传、
+				单文件全新下载、
+				单文件断点下载、
+				单文件改名（目录层次不改变为前提）、
+				单目录改名（目录层次不改变为前提）、
+				列出指定远程目录内的所有文件和目录明细。
+			见AiFtp.class.php。
+			支持FTP状态码反馈，见AiFtpStatus.class.php
+		2、添加[FTP扩展]对应的测试Block，位于ftp_test()@HelpAction
+		
+		
+		
+		
+		
+		
+		中间空了很多，需要补充回来，请查看历史各个版本的change.txt
+		
+		
+		
+		
+		
+	2014-4-13
+		1、修正[mysql扩展]中mysql.php第109~110行，添加了以下语句：
+				if(false===$value) $value='false';//如果字段为布尔假，则用无引号的false
+				if(true===$value) $value='true';//如果字段为布尔真，则用无引号的true
+				
+			修正了插入bool数值到SQL语句导致语法不正常的BUG（布尔值处留空，即两个逗号之间为空）。
+		
+		
+	2014-4-16
+		1、修正[mysql扩展]中mysql.php第154~155行，添加了：
+				if(false===$value) $value='false';//如果字段为布尔假，则用无引号的false
+				if(true===$value) $value='true';//如果字段为布尔真，则用无引号的true
+			修正了修改bool数值到SQL语句导致语法不正常的BUG（布尔值处留空，即两个逗号之间为空）。
+			
+	2014-6-25
+		1、/index.php加入以下代码：
+			//设置默认时区
+			date_default_timezone_set('PRC');
+			//开启输出缓冲（租用的服务器需要）
+			ob_start();
+			//开启PHP错误提示
+			ini_set("display_errors", "On");
+			error_reporting(E_ALL | E_STRICT);		
